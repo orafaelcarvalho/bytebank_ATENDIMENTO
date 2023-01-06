@@ -3,6 +3,8 @@ using bytebank_ATENDIMENTO.bytebank.Util;
 
 Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
 
+#region Exemplos Arrays em C#
+
 //TestaArrayInt();
 //TestaBuscarPalavra();
 void TestaArrayInt()
@@ -77,7 +79,7 @@ void TestaMediana(Array array)
     Console.WriteLine($"Com base na amostra a mediana = {mediana}");
 }
 
-TestaArrayDeContasCorrentes();
+//TestaArrayDeContasCorrentes();
 void TestaArrayDeContasCorrentes()
 {
     ListaDeContasCorrentes listaDeContas = new ListaDeContasCorrentes();
@@ -92,20 +94,28 @@ void TestaArrayDeContasCorrentes()
     listaDeContas.Adicionar(new ContaCorrente(874, "12345-I", 70));
     var contaDoRafael = new ContaCorrente(123, "11912-1", 50000.12);
     listaDeContas.Adicionar(contaDoRafael);
-           
-    Console.WriteLine("------------------------------------------");
-    listaDeContas.ExibeLista();
-    Console.WriteLine("-------------------");
-    var contaComMaiorSaldo = listaDeContas.MaiorSaldo();
-    Console.WriteLine($"Conta com maior saldo: {contaComMaiorSaldo.Conta} / {contaComMaiorSaldo.Numero_agencia}");
-    Console.WriteLine($"Saldo desse filho da puta: {contaComMaiorSaldo.Saldo}");
-        
-    Console.WriteLine("------------------------------------------");
-    listaDeContas.Remover(contaDoRafael);
-    listaDeContas.ExibeLista();
-    Console.WriteLine("-------------------");
-    contaComMaiorSaldo = listaDeContas.MaiorSaldo();
-    Console.WriteLine($"Conta com maior saldo: {contaComMaiorSaldo.Conta} / {contaComMaiorSaldo.Numero_agencia}");
-    Console.WriteLine($"Saldo desse filho da puta: {contaComMaiorSaldo.Saldo}");
 
+    //Console.WriteLine("------------------------------------------");
+    //listaDeContas.ExibeLista();
+    //Console.WriteLine("-------------------");
+    //var contaComMaiorSaldo = listaDeContas.MaiorSaldo();
+    //Console.WriteLine($"Conta com maior saldo: {contaComMaiorSaldo.Conta} / {contaComMaiorSaldo.Numero_agencia}");
+    //Console.WriteLine($"Saldo desse filho da puta: {contaComMaiorSaldo.Saldo}");
+
+    //Console.WriteLine("------------------------------------------");
+    //listaDeContas.Remover(contaDoRafael);
+    //listaDeContas.ExibeLista();
+    //Console.WriteLine("-------------------");
+    //contaComMaiorSaldo = listaDeContas.MaiorSaldo();
+    //Console.WriteLine($"Conta com maior saldo: {contaComMaiorSaldo.Conta} / {contaComMaiorSaldo.Numero_agencia}");
+    //Console.WriteLine($"Saldo desse filho da puta: {contaComMaiorSaldo.Saldo}");
+
+    for (int i = 0; i < listaDeContas.Tamanho; i++)
+    {
+        ContaCorrente conta = listaDeContas[i];
+        Console.WriteLine($"Indice [{i}] = {conta.Conta}/{conta.Numero_agencia}");
+    }
 }
+
+#endregion
+
