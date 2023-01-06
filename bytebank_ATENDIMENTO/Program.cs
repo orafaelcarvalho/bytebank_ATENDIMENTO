@@ -1,4 +1,7 @@
-﻿Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
+﻿using bytebank.Modelos.Conta;
+using bytebank_ATENDIMENTO.bytebank.Util;
+
+Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
 
 //TestaArrayInt();
 //TestaBuscarPalavra();
@@ -72,4 +75,37 @@ void TestaMediana(Array array)
         (numerosOrdenados[meio] + numerosOrdenados[meio - 1]) / 2;
 
     Console.WriteLine($"Com base na amostra a mediana = {mediana}");
+}
+
+TestaArrayDeContasCorrentes();
+void TestaArrayDeContasCorrentes()
+{
+    ListaDeContasCorrentes listaDeContas = new ListaDeContasCorrentes();
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-A", 1110));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-B", 20));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-C", 30));    
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-D", 40));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-E", 50));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-F", 60));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-G", 880));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-H", 70));
+    listaDeContas.Adicionar(new ContaCorrente(874, "12345-I", 70));
+    var contaDoRafael = new ContaCorrente(123, "11912-1", 50000.12);
+    listaDeContas.Adicionar(contaDoRafael);
+           
+    Console.WriteLine("------------------------------------------");
+    listaDeContas.ExibeLista();
+    Console.WriteLine("-------------------");
+    var contaComMaiorSaldo = listaDeContas.MaiorSaldo();
+    Console.WriteLine($"Conta com maior saldo: {contaComMaiorSaldo.Conta} / {contaComMaiorSaldo.Numero_agencia}");
+    Console.WriteLine($"Saldo desse filho da puta: {contaComMaiorSaldo.Saldo}");
+        
+    Console.WriteLine("------------------------------------------");
+    listaDeContas.Remover(contaDoRafael);
+    listaDeContas.ExibeLista();
+    Console.WriteLine("-------------------");
+    contaComMaiorSaldo = listaDeContas.MaiorSaldo();
+    Console.WriteLine($"Conta com maior saldo: {contaComMaiorSaldo.Conta} / {contaComMaiorSaldo.Numero_agencia}");
+    Console.WriteLine($"Saldo desse filho da puta: {contaComMaiorSaldo.Saldo}");
+
 }
