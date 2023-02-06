@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +18,7 @@ namespace bytebank_ATENDIMENTO.bytebank.Util
 
         public void Adicionar(ContaCorrente item)
         {
-            //Console.WriteLine($"Adicionando item na posição {_proximaPosicao}");
+            Console.WriteLine($"Adicionando item na posição {_proximaPosicao}");
             VerificarCapacidade(_proximaPosicao + 1);
             _itens[_proximaPosicao] = item;
             _proximaPosicao++;
@@ -27,37 +26,18 @@ namespace bytebank_ATENDIMENTO.bytebank.Util
 
         private void VerificarCapacidade(int tamanhoNecessario)
         {
-            if(_itens.Length >= tamanhoNecessario)
+            if (_itens.Length >= tamanhoNecessario)
             {
                 return;
             }
-
-            //Console.WriteLine("Aumentando a capacidade da lista!");
+            Console.WriteLine("Aumentando a capacidade da lista!");
             ContaCorrente[] novoArray = new ContaCorrente[tamanhoNecessario];
-            
+
             for (int i = 0; i < _itens.Length; i++)
             {
                 novoArray[i] = _itens[i];
             }
             _itens = novoArray;
-        }
-
-        public ContaCorrente MaiorSaldo()
-        {
-            ContaCorrente conta = null;
-            double maiorSaldo = 0;
-            for (int i = 0; i < _itens.Length; i++)
-            {
-                if(_itens[i] != null)
-                {
-                    if (_itens[i].Saldo > maiorSaldo)
-                    {
-                        maiorSaldo = _itens[i].Saldo;
-                        conta = _itens[i];
-                    }
-                }
-            }
-            return conta;
         }
 
         public void Remover(ContaCorrente conta)
@@ -91,8 +71,7 @@ namespace bytebank_ATENDIMENTO.bytebank.Util
                     var conta = _itens[i];
                     Console.WriteLine($" Indice[{i}] = " +
                         $"Conta:{conta.Conta} - " +
-                        $"N° da Agência: {conta.Numero_agencia} " +
-                        $"Saldo da conta: {conta.Saldo}");
+                        $"N° da Agência: {conta.Numero_agencia}");
                 }
             }
         }
@@ -122,6 +101,8 @@ namespace bytebank_ATENDIMENTO.bytebank.Util
                 return RecuperarContaNoIndice(indice);
             }
         }
+
+
 
     }
 }
