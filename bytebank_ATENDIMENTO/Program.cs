@@ -1,4 +1,5 @@
 ﻿using bytebank.Modelos.Conta;
+using bytebank_ATENDIMENTO.bytebank.Exceptions;
 using bytebank_ATENDIMENTO.bytebank.Util;
 using System.Collections;
 
@@ -109,46 +110,162 @@ void TestaArrayDeContasCorrentes()
         ContaCorrente conta = listaDeContas[i];
         Console.WriteLine($"Indice [{i}] = {conta.Conta}/{conta.Numero_agencia}");
     }
-
 }
 
 //TestaArrayDeContasCorrentes();
+#endregion 
+
+#region Exemplos de uso do List
+//Generica<int> teste1 = new Generica<int>();
+//teste1.MostrarMensagem(10);
+
+//Generica<string> teste2 = new Generica<string>();
+//teste2.MostrarMensagem("Olá mundo!");
+
+//public class Generica<T>
+//{
+//    public void MostrarMensagem(T t)
+//    {
+//        Console.WriteLine($"Exibindo {t}");
+//    }
+//}
+
+//List<ContaCorrente> _listaDeContas2 = new List<ContaCorrente>()
+//{
+//  new ContaCorrente(874, "5679787-A"),
+//  new ContaCorrente(874, "4456668-B"),
+//  new ContaCorrente(874, "7781438-C")
+//};
+
+//List<ContaCorrente> _listaDeContas3 = new List<ContaCorrente>()
+//{
+//  new ContaCorrente(951, "5679787-E"),
+//  new ContaCorrente(321, "4456668-F"),
+//  new ContaCorrente(719, "7781438-G")
+//};
+
+//_listaDeContas2.AddRange(_listaDeContas3);
+//_listaDeContas2.Reverse();
+
+//for (int i = 0; i < _listaDeContas2.Count; i++)
+//{
+//    Console.WriteLine($"Indice[{i}] = Conta [{_listaDeContas2[i].Conta}]");
+//}
+
+//Console.WriteLine("\n\n");
+
+//var range = _listaDeContas3.GetRange(0, 1);
+//for (int i = 0; i < range.Count; i++)
+//{
+//    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
+//}
+
+//Console.WriteLine("\n\n");
+
+//_listaDeContas3.Clear();
+//for (int i = 0; i < _listaDeContas3.Count; i++)
+//{
+//    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
+//}
 #endregion
 
-ArrayList _listaDeContas = new ArrayList();
+List<ContaCorrente> _listaDeContas = new List<ContaCorrente>(){
+  new ContaCorrente(95, "123456-X"){Saldo=100},
+  new ContaCorrente(95, "951258-X"){Saldo=200},
+  new ContaCorrente(94, "987321-W"){Saldo=60}
+};
 
 AtendimentoCliente();
+
 void AtendimentoCliente()
 {
-    char opcao = '0';
-    while (opcao != '6')
+    try
     {
-        Console.Clear();
-        Console.WriteLine("===============================");
-        Console.WriteLine("===       Atendimento       ===");
-        Console.WriteLine("===1 - Cadastrar Conta      ===");
-        Console.WriteLine("===2 - Listar Contas        ===");
-        Console.WriteLine("===3 - Remover Conta        ===");
-        Console.WriteLine("===4 - Ordenar Contas       ===");
-        Console.WriteLine("===5 - Pesquisar Conta      ===");
-        Console.WriteLine("===6 - Sair do Sistema      ===");
-        Console.WriteLine("===============================");
-        Console.WriteLine("\n\n");
-        Console.Write("Digite a opção desejada: ");
-        opcao = Console.ReadLine()[0];
-        switch (opcao)
+        char opcao = '0';
+        while (opcao != '6')
         {
-            case '1':
-                CadastrarConta();
-                break;
-            case '2':
-                ListarContas();
-                break;
-            default:
-                Console.WriteLine("Opcao não implementada.");
-                break;
+            Console.Clear();
+            Console.WriteLine("===============================");
+            Console.WriteLine("===       Atendimento       ===");
+            Console.WriteLine("===1 - Cadastrar Conta      ===");
+            Console.WriteLine("===2 - Listar Contas        ===");
+            Console.WriteLine("===3 - Remover Conta        ===");
+            Console.WriteLine("===4 - Ordenar Contas       ===");
+            Console.WriteLine("===5 - Pesquisar Conta      ===");
+            Console.WriteLine("===6 - Sair do Sistema      ===");
+            Console.WriteLine("===============================");
+            Console.WriteLine("\n\n");
+            Console.Write("Digite a opção desejada: ");
+            try
+            {
+                opcao = Console.ReadLine()[0];
+            }
+            catch (Exception excecao)
+            {
+                throw new ByteBankException(excecao.Message);
+            }
+
+            switch (opcao)
+            {
+                case '1':
+                    CadastrarConta();
+                    break;
+                case '2':
+                    ListarContas();
+                    break;
+                case '3':
+                    RemoverContas();
+                    break;
+                case '4':
+                    OrdenarContas();
+                    break;
+                default:
+                    Console.WriteLine("Opcao não implementada.");
+                    break;
+            }
         }
     }
+    catch (ByteBankException excecao)
+    {
+        Console.WriteLine($"{excecao.Message}");
+    }
+
+}
+
+void OrdenarContas()
+{
+    _listaDeContas.Sort();
+    Console.WriteLine("... Lista de Contas ordenadas ...");
+    Console.ReadKey();
+}
+
+void RemoverContas()
+{
+    Console.Clear();
+    Console.WriteLine("===============================");
+    Console.WriteLine("===      REMOVER CONTAS     ===");
+    Console.WriteLine("===============================");
+    Console.WriteLine("\n");
+    Console.Write("Informe o número da Conta: ");
+    string numeroConta = Console.ReadLine();
+    ContaCorrente conta = null;
+    foreach (var item in _listaDeContas)
+    {
+        if (item.Conta.Equals(numeroConta))
+        {
+            conta = item;
+        }
+    }
+    if (conta != null)
+    {
+        _listaDeContas.Remove(conta);
+        Console.WriteLine("... Conta removida da lista! ...");
+    }
+    else
+    {
+        Console.WriteLine(" ... Conta para remoção não encontrada ...");
+    }
+    Console.ReadKey();
 }
 
 void ListarContas()
@@ -168,6 +285,7 @@ void ListarContas()
     {
         Console.WriteLine("===  Dados da Conta  ===");
         Console.WriteLine("Número da Conta : " + item.Conta);
+        Console.WriteLine("Saldo da Conta : " + item.Saldo);
         Console.WriteLine("Titular da Conta: " + item.Titular.Nome);
         Console.WriteLine("CPF do Titular  : " + item.Titular.Cpf);
         Console.WriteLine("Profissão do Titular: " + item.Titular.Profissao);
@@ -206,6 +324,7 @@ void CadastrarConta()
     conta.Titular.Profissao = Console.ReadLine();
 
     _listaDeContas.Add(conta);
+
     Console.WriteLine("... Conta cadastrada com sucesso! ...");
     Console.ReadKey();
 }
