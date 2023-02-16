@@ -1,6 +1,7 @@
 ﻿using bytebank.Modelos.Conta;
 using bytebank_ATENDIMENTO.bytebank.Atendimento;
 using bytebank_ATENDIMENTO.bytebank.Exceptions;
+using bytebank_ATENDIMENTO.bytebank.Modelos;
 using bytebank_ATENDIMENTO.bytebank.Util;
 
 Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
@@ -169,4 +170,38 @@ void TestaArrayDeContasCorrentes()
 //}
 #endregion
 
-new ByteBankAtendimento().AtendimentoCliente();
+//new ByteBankAtendimento().AtendimentoCliente();
+
+List<Pessoa> _pessoas = new List<Pessoa>();
+
+_pessoas.Add(new Pessoa("Rafael","Souza de Carvalho"));
+_pessoas.Add(new Pessoa("Sofya","Souza de Carvalho"));
+_pessoas.Add(new Pessoa("Maria","Souza de Carvalho"));
+
+Pessoa roberto = new Pessoa("Roberto", "Souza de Carvalho");
+
+_pessoas.Add(roberto);
+
+foreach (var item in _pessoas)
+{
+    Console.WriteLine(item.ToString());
+}
+
+Pessoa pessoa = null;
+
+foreach(var item in _pessoas)
+{
+    if (item.Nome.Equals("Rafael"))
+    {
+        pessoa = item;
+    }
+}
+
+_pessoas.Remove(pessoa);
+
+Console.WriteLine("========================================\n");
+
+foreach (var item in _pessoas)
+{
+    Console.WriteLine(item.ToString());
+}
