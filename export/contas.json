@@ -1,0 +1,35 @@
+[
+  {
+    "Titular": {
+      "Cpf": "11111",
+      "Nome": "Henrique",
+      "Profissao": null
+    },
+    "Nome_Agencia": null,
+    "Numero_agencia": 95,
+    "Conta": "68fde405",
+    "Saldo": 100.0
+  },
+  {
+    "Titular": {
+      "Cpf": "22222",
+      "Nome": "Pedro",
+      "Profissao": null
+    },
+    "Nome_Agencia": null,
+    "Numero_agencia": 95,
+    "Conta": "47ff20bf",
+    "Saldo": 200.0
+  },
+  {
+    "Titular": {
+      "Cpf": "33333",
+      "Nome": "Marisa",
+      "Profissao": null
+    },
+    "Nome_Agencia": null,
+    "Numero_agencia": 94,
+    "Conta": "1b5f0c89",
+    "Saldo": 60.0
+  }
+]

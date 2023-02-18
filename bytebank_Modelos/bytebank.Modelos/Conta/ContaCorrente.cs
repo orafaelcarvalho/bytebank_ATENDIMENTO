@@ -137,6 +137,10 @@
             Conta = Guid.NewGuid().ToString().Substring(0, 8);
             Titular = new Cliente();
             TotalDeContasCriadas += 1;
+        }
+
+        private ContaCorrente()
+        {
 
         }
 
