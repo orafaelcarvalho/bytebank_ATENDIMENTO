@@ -1,6 +1,7 @@
 ﻿using bytebank.Modelos.Conta;
 using bytebank_ATENDIMENTO.bytebank.Atendimento;
 using bytebank_ATENDIMENTO.bytebank.Util;
+using bytebank_GeradorChavePix;
 
 Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
 
@@ -170,13 +171,13 @@ void TestaArrayDeContasCorrentes()
 
 new ByteBankAtendimento().AtendimentoCliente();
 
-//Console.WriteLine(GeradorPix.GetChavePix());
+Console.WriteLine(GeradorPix.GetChavePix());
 
-//Console.WriteLine("-----------------------------------------------");
+Console.WriteLine("-----------------------------------------------");
 
-//var listaDeChaves = GeradorPix.GetChavesPix(10);
+var listaDeChaves = GeradorPix.GetChavesPix(10);
 
-//foreach (var chave in listaDeChaves)
-//{
-//    Console.WriteLine(chave);
-//}
+foreach (var chave in listaDeChaves)
+{
+    Console.WriteLine(chave);
+}
