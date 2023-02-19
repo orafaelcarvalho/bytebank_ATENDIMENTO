@@ -1,5 +1,6 @@
 ﻿using bytebank.Modelos.Conta;
 using bytebank_ATENDIMENTO.bytebank.Exceptions;
+using bytebank_ExportarDados;
 using Newtonsoft.Json;
 using System.IO;
 using System.Xml.Serialization;
@@ -62,10 +63,10 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
                             PesquisarContas();
                             break;
                         case '6':
-                            ExportarContasJson();
+                            ExportarContas("Json");
                             break;
                         case '7':
-                            ExportarContasXML();
+                            ExportarContas("Xml");
                             break;
                         case '8':
                             EncerrarAplicacao();
@@ -84,11 +85,11 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
 
         }
 
-        private void ExportarContasJson()
+        private void ExportarContas(string formato)
         {
             Console.Clear();
             Console.WriteLine("==================================");
-            Console.WriteLine("===    EXPORTAR CONTAS JSON    ===");
+            Console.WriteLine($"===    EXPORTAR CONTAS {formato}    ===");
             Console.WriteLine("==================================");
             Console.WriteLine("\n");
 
@@ -99,64 +100,21 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
             }
             else
             {
-                string json =  JsonConvert.SerializeObject(_listaDeContas,
-                    Formatting.Indented);
+                var formatoArquivo = FormatoArquivos.Json;
 
-                try
+                if (formato == "Json")
                 {
-                    FileStream fs = new FileStream(@"D:\Projetos\bytebank_ATENDIMENTO\export\contas.json",
-                        FileMode.Create);
-                    using (StreamWriter streamWriter = new StreamWriter(fs))
-                    {
-                        streamWriter.WriteLine(json);
-                    }
-
-                    Console.WriteLine(@"Arquivo salvo em D:\Projetos\bytebank_ATENDIMENTO\export\");
-                    Console.ReadKey();
+                    formatoArquivo = FormatoArquivos.Json;
                 }
-                catch (Exception ex)
+                if (formato == "Xml")
                 {
-                    throw new ByteBankException(ex.Message);
-                    Console.ReadKey(); ;
+                    formatoArquivo = FormatoArquivos.Xml;
                 }
-            }
-        }
 
-        private void ExportarContasXML()
-        {
-            Console.Clear();
-            Console.WriteLine("=================================");
-            Console.WriteLine("===    EXPORTAR CONTAS XML    ===");
-            Console.WriteLine("=================================");
-            Console.WriteLine("\n");
-
-            if (_listaDeContas.Count <= 0)
-            {
-                Console.WriteLine("... Não existem dados para exportação ...");
+                var caminho = @"D:\Projetos\bytebank_ATENDIMENTO\export";
+                ExportarDados<ContaCorrente>.SalvarDados(caminho, formatoArquivo, _listaDeContas);
+                Console.WriteLine($"... Pressione ENTER para voltar ao menu ...");
                 Console.ReadKey();
-            }
-            else
-            {
-                //Serializar para XML
-                var contasXML = new XmlSerializer(typeof(List<ContaCorrente>));
-
-                try
-                {
-                    FileStream fs = new FileStream(@"D:\Projetos\bytebank_ATENDIMENTO\export\contas.xml",
-                        FileMode.Create);
-                    using (StreamWriter streamWriter = new StreamWriter(fs))
-                    {
-                        contasXML.Serialize(streamWriter, _listaDeContas);
-                    }
-
-                    Console.WriteLine(@"Arquivo salvo em D:\Projetos\bytebank_ATENDIMENTO\export\");
-                    Console.ReadKey();
-                }
-                catch (Exception ex)
-                {
-                    throw new ByteBankException(ex.Message);
-                    Console.ReadKey();
-                }
             }
         }
 
