@@ -1,7 +1,7 @@
 ﻿using bytebank.Modelos.Conta;
 using bytebank_ATENDIMENTO.bytebank.Atendimento;
 using bytebank_ATENDIMENTO.bytebank.Util;
-using bytebank_GeradorChavePix;
+using orafaelcarvalho_GeradorChavePix;
 
 Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
 
@@ -169,7 +169,7 @@ void TestaArrayDeContasCorrentes()
 //}
 #endregion
 
-new ByteBankAtendimento().AtendimentoCliente();
+//new ByteBankAtendimento().AtendimentoCliente();
 
 Console.WriteLine(GeradorPix.GetChavePix());
 
