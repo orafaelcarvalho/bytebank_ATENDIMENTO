@@ -2,6 +2,8 @@
 using bytebank_ATENDIMENTO.bytebank.Exceptions;
 using bytebank_ExportarDados;
 using Newtonsoft.Json;
+using orafaelcarvalho_GeradorChavePix;
+using System;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -20,20 +22,22 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
             try
             {
                 char opcao = '0';
-                while (opcao != '8')
+                while (opcao != '9')
                 {
                     Console.Clear();
                     Console.WriteLine("===============================");
-                    Console.WriteLine("===       Atendimento        ===");
-                    Console.WriteLine("===1 - Cadastrar Conta       ===");
-                    Console.WriteLine("===2 - Listar Contas         ===");
-                    Console.WriteLine("===3 - Remover Conta         ===");
-                    Console.WriteLine("===4 - Ordenar Contas        ===");
-                    Console.WriteLine("===5 - Pesquisar Conta       ===");
-                    Console.WriteLine("===6 - Exportar contas JSON  ===");
-                    Console.WriteLine("===7 - Exportar contas XML   ===");
-                    Console.WriteLine("===8 - Sair do Sistema       ===");
-                    Console.WriteLine("===============================");
+                    Console.WriteLine("===       Atendimento            ===");
+                    Console.WriteLine("===1 - Cadastrar Conta           ===");
+                    Console.WriteLine("===2 - Listar Contas             ===");
+                    Console.WriteLine("===3 - Remover Conta             ===");
+                    Console.WriteLine("===4 - Ordenar Contas            ===");
+                    Console.WriteLine("===5 - Pesquisar Conta           ===");
+                    Console.WriteLine("===6 - Exportar contas JSON      ===");
+                    Console.WriteLine("===7 - Exportar contas XML       ===");
+                    Console.WriteLine("===8 - Gerar chave PIX           ===");
+                    Console.WriteLine("===9 - Gerar várias chaves PIX   ===");
+                    Console.WriteLine("===q - Sair do Sistema          ===");
+                    Console.WriteLine("====================================");
                     Console.WriteLine("\n\n");
                     Console.Write("Digite a opção desejada: ");
                     try
@@ -69,6 +73,12 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
                             ExportarContas("Xml");
                             break;
                         case '8':
+                            GerarChavePix();
+                            break;
+                        case '9':
+                            GerarChavesPix();
+                            break;
+                        case 'q':
                             EncerrarAplicacao();
                             break;
                         default:
@@ -83,6 +93,53 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
                 Console.WriteLine($"{excecao.Message}");
             }
 
+        }
+
+        private void GerarChavesPix()
+        {
+            Console.Clear();
+            Console.WriteLine("==================================");
+            Console.WriteLine("===   CHAVE ALEATÓRIA - PIX    ===");
+            Console.WriteLine("==================================");
+            Console.WriteLine("\n");
+
+            int qtd = 1;
+
+            try
+            {
+                Console.WriteLine("Digite a quantidade de chaves que você precisa gerar: ");
+                var entrada = Console.ReadLine();
+                qtd = int.Parse(entrada);
+            }
+            catch (Exception excecao)
+            {
+                throw new ByteBankException(excecao.Message);
+            }
+
+            var listaDeChaves = GeradorPix.GetChavesPix(qtd);
+
+            Console.WriteLine("\n Lista de chaves solicitadas:");
+            foreach (var chave in listaDeChaves)
+            {
+                Console.WriteLine(chave);
+            }
+
+            Console.WriteLine("\n... Pressione ENTER para voltar ao menu ...");
+            Console.ReadKey();
+        }
+
+        private void GerarChavePix()
+        {
+            Console.Clear();
+            Console.WriteLine("==================================");
+            Console.WriteLine("===   CHAVE ALEATÓRIA - PIX    ===");
+            Console.WriteLine("==================================");
+            Console.WriteLine("\n");
+
+            Console.WriteLine(GeradorPix.GetChavePix());
+            
+            Console.WriteLine("\n... Pressione ENTER para voltar ao menu ...");
+            Console.ReadKey();
         }
 
         private void ExportarContas(string formato)
@@ -113,6 +170,7 @@ namespace bytebank_ATENDIMENTO.bytebank.Atendimento
 
                 var caminho = @"D:\Projetos\bytebank_ATENDIMENTO\export";
                 ExportarDados<ContaCorrente>.SalvarDados(caminho, formatoArquivo, _listaDeContas);
+
                 Console.WriteLine($"... Pressione ENTER para voltar ao menu ...");
                 Console.ReadKey();
             }

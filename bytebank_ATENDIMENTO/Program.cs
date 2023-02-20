@@ -169,15 +169,4 @@ void TestaArrayDeContasCorrentes()
 //}
 #endregion
 
-//new ByteBankAtendimento().AtendimentoCliente();
-
-Console.WriteLine(GeradorPix.GetChavePix());
-
-Console.WriteLine("-----------------------------------------------");
-
-var listaDeChaves = GeradorPix.GetChavesPix(10);
-
-foreach (var chave in listaDeChaves)
-{
-    Console.WriteLine(chave);
-}
+new ByteBankAtendimento().AtendimentoCliente();

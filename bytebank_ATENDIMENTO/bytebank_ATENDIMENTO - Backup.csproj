@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,17 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="orafaelcarvalho_GeradorChavePix" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\bytebank_Modelos\bytebank_Modelos.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="bytebank_ExportarDados">
-      <HintPath>..\..\bytebank_ExportarDados\bytebank_ExportarDados\bin\Debug\net6.0\bytebank_ExportarDados.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
